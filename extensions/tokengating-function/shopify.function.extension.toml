@@ -1,0 +1,11 @@
+name = "tokengating-function"
+type = "product_discounts"
+api_version = "unstable"
+
+[build]
+command = "cargo wasi build --release"
+path = "target/wasm32-wasi/release/tokengating-function.wasm"
+
+[ui.paths]
+create = "/CreateTokengate"
+details = "/"
