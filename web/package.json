@@ -9,9 +9,6 @@
     "serve": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node index.js"
   },
   "type": "module",
-  "engines": {
-    "node": ">=14.13.1"
-  },
   "dependencies": {
     "@shopify/shopify-app-express": "^1.0.0",
     "@shopify/shopify-app-session-storage-sqlite": "^1.0.0",
