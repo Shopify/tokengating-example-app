@@ -9,6 +9,9 @@
     "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=14.13.1 <17.0.0"
+  },
   "dependencies": {
     "@shopify/connect-wallet": "^0.1.0",
     "@shopify/gate-context-client": "^0.1.0",

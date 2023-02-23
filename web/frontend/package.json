@@ -10,7 +10,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">= 12.16"
+    "node": ">=14.13.1 <17.0.0"
   },
   "dependencies": {
     "@shopify/app-bridge": "^3.1.0",
