@@ -5,6 +5,9 @@
 # Dependency directory
 node_modules
 
+# Dependency locks
+package-lock.json
+
 # Test coverage directory
 coverage
 
@@ -23,6 +26,7 @@ dist/
 
 # extensions build output
 extensions/*/build
+extensions/tokengate/assets
 
 # Node library SQLite database
 web/database.sqlite

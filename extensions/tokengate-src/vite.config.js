@@ -1,26 +1,26 @@
-import react from '@vitejs/plugin-react';
-import {defineConfig} from 'vite';
-import nodePolyfills from 'vite-plugin-node-stdlib-browser';
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [nodePolyfills(), react()],
   define: {
-    global: 'globalThis',
+    global: "globalThis",
   },
   build: {
-    assetsDir: '',
+    assetsDir: "",
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     minify: false,
     emptyOutDir: true,
     rollupOptions: {
-      input: './src/index.jsx',
+      input: "./src/index.jsx",
       output: {
         inlineDynamicImports: true,
-        dir: '../tokengate/assets',
-        entryFileNames: 'index.js',
+        dir: "../tokengate/assets",
+        entryFileNames: "index.js",
       },
     },
   },

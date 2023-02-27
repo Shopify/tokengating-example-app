@@ -4,6 +4,10 @@
   "main": "web/index.js",
   "author": "Shopify Inc.",
   "license": "MIT",
+  "workspaces": [
+    "extensions/*",
+    "web/*"
+  ],
   "scripts": {
     "shopify": "shopify",
     "build": "shopify app build",

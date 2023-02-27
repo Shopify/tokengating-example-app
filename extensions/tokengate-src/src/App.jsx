@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { Tokengate } from "@shopify/tokengate";
 import {
   ConnectButton,
   ConnectWalletProvider,
+  getDefaultConnectors,
   useConnectWallet,
 } from "@shopify/connect-wallet";
-import { getDefaultConnectors } from "@shopify/connect-wallet";
+import { Tokengate } from "@shopify/tokengate";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
