@@ -13,7 +13,7 @@ query Input {
             id
             gates {
               id
-              configuration {
+              configuration(appId: "tokengating-example-app") {
                 id
                 metafield(namespace: "tokengating-example-app", key: "reaction") {
                   value
