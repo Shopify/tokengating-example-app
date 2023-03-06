@@ -1,0 +1,5 @@
+SCOPES=write_products,write_discounts,read_gates,write_gates
+NODE_ENV=development
+SHOPIFY_API_KEY=tokengating-example-app-key
+SHOPIFY_API_SECRET=tokengating-example-app-secret
+BACKEND_PORT=9000

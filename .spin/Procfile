@@ -1,0 +1,2 @@
+backend: cd web && export HOST="https://$SPIN_INSTANCE_FQDN" FRAME_ANCESTORS="https://admin.$SPIN_WEB_SERVICE_FQDN" && npm run dev
+server: cd web/frontend && export HOST="https://$SPIN_INSTANCE_FQDN" && export FRONTEND_PORT=$PORT && npm run dev
