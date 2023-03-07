@@ -1,0 +1,28 @@
+query Input {
+  cart {
+    attribute(key: "_shopify_gate_context") {
+      value
+    }
+    lines {
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          product {
+            id
+            gates {
+              id
+              configuration {
+                id
+                metafield(namespace: "tokengating-example-app", key: "reaction") {
+                  value
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
