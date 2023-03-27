@@ -22,6 +22,7 @@ const GATES_QUERY = `
           nodes {
             id
           }
+          totalCount
         }
         createdAt
         updatedAt

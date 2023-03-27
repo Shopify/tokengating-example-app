@@ -55,7 +55,7 @@ export function TokengatesList() {
 
       const perkType = JSON.parse(reaction.value)?.type ?? "—";
 
-      const numProducts = subjectBindings?.nodes?.length ?? "—";
+      const numProducts = subjectBindings?.totalCount ?? "—";
 
       return (
         <IndexTable.Row id={id} key={id} position={index}>
