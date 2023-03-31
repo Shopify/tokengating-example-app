@@ -24,7 +24,7 @@ fn test_errors_without_valid_gate_context() -> Result<()> {
                                             "id": "gid://shopify/GateSubject/1",
                                             "configuration": {
                                                 "id": "gid://shopify/GateConfiguration/1",
-                                                "appId": "tokengating-example-app",
+                                                "handle": "tokengating-example-app",
                                                 "metafield": {
                                                     "value": "{\"name\":\"Snowdevil exclusive\",\"type\":\"exclusive_access\",\"purchase_limit\": \"2\"}"
                                                 }
@@ -73,7 +73,7 @@ fn test_errors_with_quantity_over_limit() -> Result<()> {
                                             "id": "gid://shopify/GateSubject/1",
                                             "configuration": {
                                                 "id": "gid://shopify/GateConfiguration/1",
-                                                "appId": "tokengating-example-app",
+                                                "handle": "tokengating-example-app",
                                                 "metafield": {
                                                     "value": "{\"name\":\"Snowdevil exclusive\",\"type\":\"exclusive_access\",\"purchase_limit\": \"2\"}"
                                                 }
@@ -122,7 +122,7 @@ fn test_no_errors_valid_gate_context() -> Result<()> {
                                             "id": "gid://shopify/GateSubject/1",
                                             "configuration": {
                                                 "id": "gid://shopify/GateConfiguration/1",
-                                                "appId": "tokengating-example-app",
+                                                "handle": "tokengating-example-app",
                                                 "metafield": {
                                                     "value": "{\"name\":\"Snowdevil exclusive\",\"type\":\"exclusive_access\",\"purchase_limit\": \"2\"}"
                                                 }

@@ -1,2 +1,2 @@
-export const myAppId = "tokengating-example-app"
-export const myAppMetafieldNamespace = myAppId
+export const myHandle = "tokengating-example-app";
+export const myAppMetafieldNamespace = myHandle;

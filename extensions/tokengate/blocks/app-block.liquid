@@ -1,12 +1,14 @@
 <div
   id="tokengating-example-app"
   data-product_id="{{ product.id }}"
-  data-product_gated="{{ product.gated? }}">Hello world app block placeholder text
+  data-product_gated="{{ product.gated? }}"
+>
+  Hello world app block placeholder text
 </div>
 <script>
   window.myAppGates = [
     {%- for gate in product.gates -%}
-      {%- if gate.configuration.app_id == 'tokengating-example-app' -%}
+      {%- if gate.configuration.handle == 'tokengating-example-app' -%}
         {%- assign configuration = gate.configuration -%}
         {
           id: "{{ configuration.id }}",
@@ -25,10 +27,10 @@
 <script async type="module" src="{{ "index.js" | asset_url }}"></script>
 
 {% schema %}
-  {
-    "name": "Tokengate",
-    "target": "section",
-    "templates": ["product"],
-    "settings": []
-  }
+{
+  "name": "Tokengate",
+  "target": "section",
+  "templates": ["product"],
+  "settings": []
+}
 {% endschema %}

@@ -1,6 +1,6 @@
 import { GraphqlQueryError } from "@shopify/shopify-api";
 import shopify from "../shopify.js";
-import { myAppMetafieldNamespace, myAppId } from "./constants.js";
+import { myAppMetafieldNamespace, myHandle } from "./constants.js";
 import { createAutomaticDiscount } from "./create-discount.js";
 
 const CREATE_GATE_CONFIGURATION_MUTATION = `
@@ -19,7 +19,7 @@ const CREATE_GATE_CONFIGURATION_MUTATION = `
           type: "json",
           value: $reaction
         }],
-        appId: "${myAppId}"
+        handle: "${myHandle}"
       }) {
       gateConfiguration {
         id
