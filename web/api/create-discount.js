@@ -12,28 +12,6 @@ if (YOUR_FUNCTION_ID == "YOUR_FUNCTION_ID") {
   `);
 }
 
-const DISCOUNT_FUNCTION_QUERY = `
-  query discountFunctionQuery {
-    automaticDiscountNodes(first: 10) {
-      nodes {
-        id
-        automaticDiscount {
-          ... on DiscountAutomaticApp {
-            discountId
-            title
-            appDiscountType {
-              functionId
-            }
-          }
-        }
-        metafield(namespace: "${myAppMetafieldNamespace}", key: "gate_configuration_id") {
-          value
-        }
-      }
-    }
-  }
-`;
-
 const CREATE_AUTOMATIC_DISCOUNT_MUTATION = `
   mutation CreateAutomaticDiscount($discount: DiscountAutomaticAppInput!) {
     discountCreate: discountAutomaticAppCreate(
@@ -49,8 +27,6 @@ const CREATE_AUTOMATIC_DISCOUNT_MUTATION = `
 `;
 
 export const createAutomaticDiscount = async (client, gateConfiguration) => {
-  const shouldCreateDiscount = await noMatchingFunction(client, gateConfiguration);
-  if (shouldCreateDiscount) {
     const response = await client.query({
       data: {
         query: CREATE_AUTOMATIC_DISCOUNT_MUTATION,
@@ -76,22 +52,3 @@ export const createAutomaticDiscount = async (client, gateConfiguration) => {
       },
     });
   }
-};
-
-const noMatchingFunction = async (client, gateConfiguration) => {
-  const response = await client.query({
-    data: {
-      query: DISCOUNT_FUNCTION_QUERY,
-    },
-  });
-
-  if (!Boolean(response?.body?.data?.automaticDiscountNodes?.nodes)) return true;
-  for (const node of response.body.data.automaticDiscountNodes.nodes) {
-    const functionId = node.discount.automaticDiscount.functionId;
-    const gateConfigurationId = node.metafield.value;
-    if (YOUR_FUNCTION_ID == functionId &&
-        gateConfiguration.id == gateConfigurationId) return false;
-  }
-
-  return true;
-};
