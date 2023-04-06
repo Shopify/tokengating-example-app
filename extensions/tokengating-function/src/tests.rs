@@ -24,7 +24,7 @@ fn input(
                                     "id": "gid://shopify/GateSubject/1",
                                     "configuration": {
                                         "id": "gid://shopify/GateConfiguration/1",
-                                        "appId": "tokengating-example-app",
+                                        "handle": "tokengating-example-app",
                                         "metafield": {
                                             "value": "{\"name\":\"Snowdevil discount\",\"type\":\"discount\",\"discount\":{\"type\":\"percentage\",\"value\": 25}}"
                                         }
@@ -46,7 +46,7 @@ fn input(
                                     "id": "gid://shopify/GateSubject/2",
                                     "configuration": {
                                         "id": "gid://shopify/GateConfiguration/2",
-                                        "appId": "tokengating-example-app",
+                                        "handle": "tokengating-example-app",
                                         "metafield": {
                                             "value": "{\"name\":\"Tokenfolk discount\",\"type\":\"discount\",\"discount\":{\"type\":\"amount\",\"value\": \"10\"}}"
                                         }
@@ -68,7 +68,7 @@ fn input(
                                     "id": "gid://shopify/GateSubject/3",
                                     "configuration": {
                                         "id": "gid://shopify/GateConfiguration/2",
-                                        "appId": "tokengating-example-app",
+                                        "handle": "tokengating-example-app",
                                         "metafield": {
                                             "value": "{\"name\":\"Tokenfolk discount\",\"type\":\"discount\",\"discount\":{\"type\":\"amount\",\"value\": \"10\"}}"
                                         }
@@ -90,7 +90,7 @@ fn input(
                                     "id": "gid://shopify/GateSubject/4",
                                     "configuration": {
                                         "id": "gid://shopify/GateConfiguration/3",
-                                        "appId": "tokengating-example-app",
+                                        "handle": "tokengating-example-app",
                                         "metafield": {
                                             "value": "{\"name\":\"Another discount\",\"type\":\"discount\",\"discount\":{\"type\":\"amount\",\"value\": 15}}"
                                         }

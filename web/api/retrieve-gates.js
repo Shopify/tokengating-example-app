@@ -1,15 +1,15 @@
 import { GraphqlQueryError } from "@shopify/shopify-api";
 import shopify from "../shopify.js";
 
-import { myAppMetafieldNamespace, myAppId } from "./constants.js";
+import { myAppMetafieldNamespace, myHandle } from "./constants.js";
 
 const GATES_QUERY = `
   query getGateConfigurations($first: Int!) {
-    gateConfigurations(query: "app_id:${myAppId}", first: $first) {
+    gateConfigurations(query: "handle:${myHandle}", first: $first) {
       nodes {
         id
         name
-        appId
+        handle
         requirements: metafield(namespace: "${myAppMetafieldNamespace}",
           key: "requirements") {
             value

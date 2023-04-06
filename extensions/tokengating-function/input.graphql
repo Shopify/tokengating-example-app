@@ -11,9 +11,9 @@ query Input {
           id
           product {
             id
-            gates {
+            gates(handle: "tokengating-example-app") {
               id
-              configuration(appId: "tokengating-example-app") {
+              configuration {
                 id
                 metafield(namespace: "tokengating-example-app", key: "reaction") {
                   value
