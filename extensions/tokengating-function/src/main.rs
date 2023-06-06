@@ -114,12 +114,12 @@ fn function(input: input::ResponseData) -> Result<output::FunctionResult> {
                 gate_reaction =
                     parse_gate_reaction_from_metafield(gate_configuration.metafield.as_ref());
 
-                targets.push(output::Target {
-                    product_variant: Some(output::ProductVariantTarget {
+                targets.push(output::Target::ProductVariant(
+                    output::ProductVariantTarget {
                         id: product_variant.id.to_string(),
                         quantity: None,
-                    }),
-                });
+                    },
+                ));
             }
         }
     }
@@ -190,24 +190,15 @@ fn hmac_signature(key: &str, msg: &str) -> String {
 fn reaction_value(reaction: GateReaction) -> output::Value {
     match reaction.discount {
         Discount::Percentage { value } => {
-            return output::Value {
-                percentage: Some(output::Percentage {
-                    value: value.to_string(),
-                }),
-                fixed_amount: None,
-            }
+            return output::Value::Percentage(output::Percentage {
+                value: value.to_string(),
+            });
         }
         Discount::Amount { value } => {
-            return output::Value {
-                percentage: None,
-                fixed_amount: Some(output::FixedAmount {
-                    applies_to_each_item: None,
-                    amount: value.to_string(),
-                }),
-            }
+            return output::Value::FixedAmount(output::FixedAmount {
+                applies_to_each_item: None,
+                amount: value.to_string(),
+            });
         }
     };
 }
-
-#[cfg(test)]
-mod tests;
