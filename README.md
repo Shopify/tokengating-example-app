@@ -30,9 +30,12 @@
 If you'd like a step-by-step tutorial on how to build this app, check out our [tutorial series](https://shopify.dev/apps/blockchain/tokengating/build-a-tokengating-app).
 
 ## More Resources
+
 - [Read more about tokengating](https://shopify.dev/apps/blockchain/tokengating)
 - [Gate objects in GraphQL Admin API](https://shopify.dev/api/admin-graphql/unstable/objects/GateConfiguration)
 - [Gate objects in Shopify Functions](https://shopify.dev/api/functions/reference/product-discounts/graphql/common-objects/gatesubject)
+- [Read more about `@shopify/connect-wallet`](https://shopify.dev/docs/api/blockchain/components/connect-wallet)
+- [Read more about `@shopify/tokengate`](https://shopify.dev/docs/api/blockchain/components/tokengate)
 
 ## Contributing
 

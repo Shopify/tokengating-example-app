@@ -1,14 +1,14 @@
 import {
+  buildConnectors,
   ConnectButton,
   ConnectWalletProvider,
-  getDefaultConnectors,
   useConnectWallet,
 } from "@shopify/connect-wallet";
 import { Tokengate } from "@shopify/tokengate";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { configureChains, createConfig, mainnet, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { useEvaluateGate } from './useEvaluateGate';
+
+import { useEvaluateGate } from "./useEvaluateGate";
 
 const _App = () => {
   const { isLocked, unlockingTokens, evaluateGate, gateEvaluation } = useEvaluateGate();
@@ -35,8 +35,8 @@ const _App = () => {
 
 export const App = () => {
   return (
-    <WagmiConfig client={client}>
-      <ConnectWalletProvider chains={chains} wallet={undefined}>
+    <WagmiConfig config={config}>
+      <ConnectWalletProvider chains={chains} connectors={connectors}>
         <_App />
       </ConnectWalletProvider>
     </WagmiConfig>
@@ -45,16 +45,19 @@ export const App = () => {
 
 const getGate = () => window.myAppGates?.[0] || {};
 
-const { chains, provider, webSocketProvider } = configureChains(
+const {chains, publicClient, webSocketPublicClient} = configureChains(
   [mainnet],
-  [publicProvider()]
+  [publicProvider()],
 );
 
-const { connectors } = getDefaultConnectors({ chains });
+const {connectors, wagmiConnectors} = buildConnectors({
+  chains,
+  projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID',
+});
 
-const client = createClient({
+const config = createConfig({
   autoConnect: true,
-  connectors,
-  provider,
-  webSocketProvider,
+  connectors: wagmiConnectors,
+  publicClient,
+  webSocketPublicClient,
 });

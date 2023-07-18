@@ -1,5 +1,8 @@
-import ReactDOM from "react-dom";
 import React from "react";
+import ReactDOM from "react-dom";
+
+import "@shopify/connect-wallet/styles.css";
+import "@shopify/tokengate/styles.css";
 
 import {App} from './App';
 
