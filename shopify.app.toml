@@ -2,19 +2,19 @@
 
 name = "Test App"
 client_id = "8d796e39b66b3a14e34f84a9f09b63c0"
-application_url = "https://circuits-scientist-lookup-produced.trycloudflare.com"
+application_url = "https://operations-dive-mines-restored.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products, write_gates, write_discounts"
 use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://circuits-scientist-lookup-produced.trycloudflare.com/auth/callback",
-  "https://circuits-scientist-lookup-produced.trycloudflare.com/auth/shopify/callback",
-  "https://circuits-scientist-lookup-produced.trycloudflare.com/api/auth/callback"
+  "https://operations-dive-mines-restored.trycloudflare.com/auth/callback",
+  "https://operations-dive-mines-restored.trycloudflare.com/auth/shopify/callback",
+  "https://operations-dive-mines-restored.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

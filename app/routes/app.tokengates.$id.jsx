@@ -1,34 +1,51 @@
 import { json } from "@remix-run/node";
 import {
-  Link,
   useActionData,
   useLoaderData,
+  useNavigate,
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
 import {
+  Box,
   Button,
   ButtonGroup,
   Card,
   Divider,
   HorizontalStack,
+  Icon,
   Layout,
+  Link,
   Page,
   PageActions,
-  Tag,
   Text,
   TextField,
+  Thumbnail,
   VerticalStack,
 } from "@shopify/polaris";
-import { useCallback, useState } from "react";
+import { CancelMinor, ImageMajor } from "@shopify/polaris-icons";
+import { useCallback, useEffect, useState } from "react";
+import createGate from "~/api/create-gate";
 import { authenticate } from "~/shopify.server";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
 
-  const tokengate = {};
+  const tokengate = {
+    discountType: "percentage",
+  };
 
   return json(tokengate);
+};
+
+export const action = async ({ request }) => {
+  const { admin } = await authenticate.admin(request);
+
+  const data = await request.json();
+
+  await createGate(admin.graphql, data);
+
+  return null;
 };
 
 export default function TokengateForm() {
@@ -39,9 +56,9 @@ export default function TokengateForm() {
   const [cleanFormState, setCleanFormState] = useState(tokengate);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
 
+  const navigate = useNavigate();
   const nav = useNavigation();
   const isSaving = nav.state === "submitting" && nav.formMethod === "POST";
-  const isDeleting = nav.state === "submitting" && nav.formMethod === "DELETE";
 
   const handleDiscountTypeButtonClick = useCallback(
     (discountType) => setFormState({ ...formState, discountType }),
@@ -57,9 +74,10 @@ export default function TokengateForm() {
     });
 
     if (selected?.selection) {
-      const products = selected.selection.map(({ id, title }) => ({
+      const products = selected.selection.map(({ id, title, images }) => ({
         id,
         title,
+        images,
       }));
       setFormState({ ...formState, products });
     }
@@ -81,29 +99,35 @@ export default function TokengateForm() {
       name: formState.name,
       discount: formState.discount,
       discountType: formState.discountType,
-      segment: formState.segment,
-      products: formState.products,
+      segment: formState.segment.split(/,\s*/),
+      productGids: formState.products.map(({ id }) => id),
     };
 
     setCleanFormState({ ...formState });
-    submit(data, { method: "post" });
+    submit(data, { method: "post", encType: "application/json" });
   }
+
+  useEffect(() => {
+    if (isSaving) {
+      shopify.toast.show("Tokengate created");
+    }
+  }, [isSaving]);
 
   return (
     <Page narrowWidth>
       <ui-title-bar
         title={tokengate.id ? "Edit Tokengate" : "Create new Tokengate"}
       >
-        <Link variant="breadcrumb" to="/app/tokengates">
+        <button variant="breadcrumb" onClick={() => navigate("/app")}>
           Tokengates
-        </Link>
+        </button>
       </ui-title-bar>
       <Layout>
         <Layout.Section>
-          <VerticalStack gap="5">
+          <VerticalStack gap="4">
             <Card>
               <VerticalStack gap="5">
-                <Text as={"h2"} variant="headingLg">
+                <Text as={"h2"} variant="headingMd">
                   Configuration
                 </Text>
                 <TextField
@@ -115,11 +139,11 @@ export default function TokengateForm() {
                   error={errors.name}
                 />
                 <Divider />
-                <VerticalStack gap="1">
-                  <Text as={"p"} variant="bodyMd" fontWeight="bold">
+                <VerticalStack gap="2">
+                  <Text as={"p"} variant="bodyMd" fontWeight="semibold">
                     DISCOUNT PERK
                   </Text>
-                  <HorizontalStack gap="5" align="start">
+                  <HorizontalStack gap="4" align="start">
                     <ButtonGroup segmented>
                       <Button
                         pressed={formState.discountType === "percentage"}
@@ -157,8 +181,8 @@ export default function TokengateForm() {
                   </HorizontalStack>
                 </VerticalStack>
                 <Divider />
-                <VerticalStack gap="1">
-                  <Text as={"p"} variant="bodyMd" fontWeight="bold">
+                <VerticalStack gap="2">
+                  <Text as={"p"} variant="bodyMd" fontWeight="semibold">
                     SEGMENT
                   </Text>
                   <TextField
@@ -180,23 +204,53 @@ export default function TokengateForm() {
             <Card>
               <VerticalStack gap="5">
                 <HorizontalStack align="space-between">
-                  <Text as={"h2"} variant="headingLg">
+                  <Text as={"h2"} variant="headingMd">
                     Applies to
                   </Text>
                   {formState.products?.length > 0 ? (
-                    <Button onClick={selectProducts}>Change products</Button>
+                    <Button plain onClick={selectProducts}>
+                      Choose products
+                    </Button>
                   ) : null}
                 </HorizontalStack>
                 {formState.products?.length > 0 ? (
-                  <HorizontalStack gap="2">
-                    {formState.products.map(({ id, title }, index) => {
+                  <VerticalStack gap="2">
+                    {formState.products.map(({ id, images, title }, index) => {
                       return (
-                        <Tag key={index} onRemove={() => handleRemoveItem(id)}>
-                          {title}
-                        </Tag>
+                        <VerticalStack gap="2" key={index}>
+                          {index > 0 ? <Divider /> : null}
+                          <HorizontalStack
+                            align="start"
+                            blockAlign="center"
+                            gap="5"
+                          >
+                            {images.length > 0 ? (
+                              <Thumbnail
+                                alt={images[0]?.altText}
+                                source={images[0]?.originalSrc}
+                                size="small"
+                              ></Thumbnail>
+                            ) : (
+                              <Box
+                                borderColor="border"
+                                borderWidth="1"
+                                borderRadius="1"
+                                padding={"2"}
+                              >
+                                <Icon source={ImageMajor} />
+                              </Box>
+                            )}
+                            <div style={{ flexGrow: 1 }}>
+                              <Text as="span">{title}</Text>
+                            </div>
+                            <Link onClick={() => handleRemoveItem(id)}>
+                              <Icon source={CancelMinor} />
+                            </Link>
+                          </HorizontalStack>
+                        </VerticalStack>
                       );
                     })}
-                  </HorizontalStack>
+                  </VerticalStack>
                 ) : (
                   <HorizontalStack align="center">
                     <Button onClick={selectProducts}>Choose products</Button>
@@ -206,23 +260,9 @@ export default function TokengateForm() {
             </Card>
           </VerticalStack>
           <PageActions
-            secondaryActions={
-              tokengate.id
-                ? [
-                    {
-                      content: "Delete",
-                      loading: isDeleting,
-                      disabled: isSaving || isDeleting,
-                      destructive: true,
-                      outline: true,
-                      onAction: () => submit({}, { method: "delete" }),
-                    },
-                  ]
-                : []
-            }
             primaryAction={{
               content: "Save",
-              disabled: !isDirty || isSaving || isDeleting,
+              disabled: !isDirty || isSaving,
               onAction: handleSave,
             }}
           />
