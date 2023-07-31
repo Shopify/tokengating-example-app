@@ -1,3 +1,33 @@
-# This file stores configurations for your Shopify app.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-scopes = "write_products,read_gates,write_gates,write_discounts"
+name = "Test App"
+client_id = "8d796e39b66b3a14e34f84a9f09b63c0"
+application_url = "https://operations-dive-mines-restored.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products, write_gates, write_discounts"
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [
+  "https://operations-dive-mines-restored.trycloudflare.com/auth/callback",
+  "https://operations-dive-mines-restored.trycloudflare.com/auth/shopify/callback",
+  "https://operations-dive-mines-restored.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2022-01"
+
+  [webhooks.privacy_compliance]
+  customer_deletion_url = "https://d037-142-59-175-144.ngrok.io/api/webhooks"
+  customer_data_request_url = "https://d037-142-59-175-144.ngrok.io/api/webhooks"
+  shop_deletion_url = "https://d037-142-59-175-144.ngrok.io/api/webhooks"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "paulos-test-app-store.myshopify.com"
