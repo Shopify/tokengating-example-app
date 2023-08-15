@@ -3,7 +3,7 @@
 
 ## Requirements
 
-* This app requires a new `gates` object in Liquid that is only as early access. Please contact blockchain-partners@shopify.com with your `.myshopify.com` shop domain for access
+* This app requires a new `gates` object in Liquid that is only as early access. Please contact [Shopify Partner Support](https://help.shopify.com/en/support/partners/org-select) with your `.myshopify.com` shop domain for access
 
 ## Quick Start Guide
 
